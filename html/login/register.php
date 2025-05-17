@@ -4,6 +4,9 @@
   require "../inc/variables.php";
  ?>
 
+<?php $url = "http://localhost/mercy/osce/html/"; ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 

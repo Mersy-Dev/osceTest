@@ -3,6 +3,7 @@
   require "header.php";
 
 ?>
+<?php $url = "http://localhost/mercy/osce/html/"; ?>
 
 
 <!-- carousel -->
@@ -12,6 +13,8 @@
 
 
 <link  rel="stylesheet" href="<?php echo $url;?>assets/landing.css?v=5">
+<link rel="stylesheet" href="<?php echo $url;?>assets/index.css?v=5">
+<link rel="stylesheet" href="<?php echo $url;?>assets/css/landing-dark.css?v=5">
 
 
 <!-- REPEATED UPDATES -->

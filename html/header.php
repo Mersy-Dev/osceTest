@@ -4,6 +4,7 @@
 // exit();
 
 require_once "inc/conn.php";
+$url = "http://localhost/mercy/osce/html/";
 
 
 

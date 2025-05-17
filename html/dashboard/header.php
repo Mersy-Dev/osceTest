@@ -1,9 +1,11 @@
 <?php 
 
 
+
+
 // header(("Location: ../alerts/temporary-maintenance.html"));
 // exit();
-
+	
 	require_once __DIR__."/../inc/conn.php";
 	logged_in(true);
 
@@ -36,6 +38,8 @@
 	}
 
 	if (!isset($page_title)) {$page_title=='';}
+	$url = "http://localhost/mercy/osce/html/"; 
+
  ?>
 
 <!DOCTYPE html>
