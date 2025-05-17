@@ -1,0 +1,5 @@
+RewriteEngine On
+
+# Rewrite rule to capture any slug and the id
+RewriteCond %{QUERY_STRING} ^id=([0-9]+)$
+RewriteRule ^[^/]+$ resource.php?id=%1 [L,QSA]

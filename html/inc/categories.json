@@ -1,0 +1,20 @@
+{
+	"scenario_categories" : [
+		"Cardiovascular histories",
+		"Respiratory histories",
+		"Gastrointestinal histories",
+		"Muscoskeletal histories",
+		"Neurological histories",
+		"Mental Health histories",
+		"Chest Pain",
+		"Cough",
+		"Joint Pain",
+		"Abdominal Pain",
+		"Shortness of breath",
+		"Flatulence",
+		"Diarrhoea",
+		"Headache"
+	],
+	"cheat_sheet_categories" : [
+	]
+}

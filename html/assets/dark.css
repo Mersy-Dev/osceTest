@@ -1,0 +1,139 @@
+body{
+    background: #141414 !important;
+    color: #BDBCC0;
+    color: #d6d6d6 !important;
+    /* color:#fff !important; */
+}
+
+.top-main{
+    background: none;
+}
+
+.sidebar{
+    background: rgb(0, 0, 0, 0.3);
+}
+
+/* main text color */
+.text-muted, a, .nav-link, button, .card, .file-icon, .content-details, .file-text, .file-type, .main-search, .itm1, .header{
+    color: #BDBCC0 !important;
+    color: #d6d6d6 !important;
+    /* color:#fff !important; */
+}
+
+a:hover{
+    color: #31afb4 !important;
+}
+
+/* white back/card/contentarea  */
+.white-bg, .custom-nav, .c-popup, .banner-text3, .footer-div, .table-check-col-dark, .touch, .content, footer, .card, .main-search-btn, .browseContent, .file, .dashboard-card, .option, .tbl1, .right-fff, .admin-tab, .hero-message-bar{
+    background: #202020 !important;
+}
+
+.pagination-button{
+    background: rgb(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.sidebar .active{
+    color:#fff !important;
+}
+
+.index-aa, .premium-badge{
+    color: black;
+}
+
+.form {
+    background: rgb(0,0,0,0.2) !important;
+}
+
+.search{
+    background: rgb(0, 0, 0, 0.7);
+}
+
+.pricing-blue{
+    background: inherit !important;
+    color: #BDBCC0;
+}
+
+.main-search-btn{
+    border-color: rgb(255, 255, 255, 0.5);
+}
+
+.browseContent div:hover {
+	background: rgb(0, 0, 0, 0.8);
+}
+
+.file:hover {
+	background: rgb(0, 0, 0, 0) !important;
+}
+
+.left-side .box, .header2, .current-pagination{
+    background: rgb(239, 121, 138, 0.5) !important;
+    background: #82474F !important;
+}
+
+.form-control{
+    background: rgb(0, 0, 0, 0.8) !important;
+    color: #fff !important;
+    border:1px solid black;
+}
+
+.form{
+    color: #fff !important;
+}
+
+.form-control:active,
+.form-control:focus{
+    box-shadow: 0 !important;
+    outline:none !important;
+    border:1px solid black !important;
+}
+
+.disclaimer{
+    background: rgb(0, 0, 0, 0.1);
+}
+
+.main-search{
+    background: rgb(0, 0, 0, 0.7);
+}
+
+.btn-primary, .nav-btn{
+    background: #31afb4 !important;
+    border-color: #05343A !important;
+    color: #fff !important;
+    /* color: #000; */
+}
+
+.btn-primary:hover, .nav-btn:hover{
+    background: #05343A !important;
+    border-color: #31afb4 !important;
+    color: #fff !important;
+}
+
+.btn-rev{
+    background: rgb(0, 0, 0, 0.7) !important;
+    color: white !important;
+}
+
+.content-dark{
+    background: none !important;
+}
+
+.rw1{
+    border-color: rgb(255, 255, 255, 0.2) !important;
+}
+
+.dark-glow{
+    text-shadow: rgba(255, 216, 148, 0.9) 0px 0px 25px;
+    color:#fff;
+}
+
+.file:hover .file-content{
+    text-shadow: rgba(255, 216, 148, 0.5) 0px 0px 25px !important;
+    color: #fff !important;
+}
+
+.file:hover .file-text{
+    text-shadow: rgba(255, 216, 148, 0.1) 0px 0px 15px;
+    color: #fff !important;
+}

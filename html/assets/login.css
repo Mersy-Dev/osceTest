@@ -1,0 +1,66 @@
+body{
+	margin:auto;
+	background:#31afb4;
+}
+
+a{color: #31AFB4;text-decoration: none;}
+
+.clear{clear: both;}
+
+.logo{
+	width: 50px;
+	top: 50px;
+	left: 5%;
+	position: absolute;
+}
+
+.box{
+	margin: auto;
+	width: 95%;
+	margin-top: 150px;
+	max-width: 450px;
+	box-shadow: 0px 0px 50px 5px rgba(0, 0, 0, 0.08);
+	background: #fff;
+	border-radius: 40px;
+	padding: 40px 40px;
+	text-align: center;
+	font-size: 12px !important;
+}
+
+.txt{
+	color: rgb(0,0,0,0.5);
+	font-weight:500;
+	margin-top: 5px;
+	font-size: 20px;
+}
+
+.header{
+	font-weight: 500;
+	/*font-family: 'Raleway';*/
+	font-size: 16px !important;
+}
+
+.form-control{
+	width: 100%;
+	border-radius: 7px;
+	margin: auto;
+	margin-bottom: 15px;
+	font-size: 14px !important;
+	padding: 10px 15px;
+}
+
+.btn{
+	background: #31AFB4;
+	color: #fff;
+	font-weight: 500;
+	width: 100%;
+	padding: 7px 0;
+	border-radius: 10px;
+}
+
+
+.error{
+	color: red;
+	font-family: sans-serif;
+	font-size: 14px !important;
+}

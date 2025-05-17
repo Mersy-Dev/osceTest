@@ -1,0 +1,508 @@
+  
+  .flex-container,
+  .subflex-container {
+    display: flex;
+    color: black;
+  }
+  
+  .subflex-container{
+    align-items:flex-end;
+  }
+  
+  .flex-container {
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+  
+  .flex-item{
+    /* width: 40%; */
+  }
+  
+  .blob{
+    position: absolute;
+    background: url(img/blob3.png) top left no-repeat;
+    background-size: contain;
+    width: 70vw;
+    /* min-width: 696px; */
+    height: 120vh;
+    /* min-height: 770px; */
+  }
+
+  .banner-left{
+    width: 50%;
+    /* background: url(img/vector.png) right no-repeat; */
+    /* background-size: cover; */
+    padding: 100px 5%;
+    position: relative;
+    z-index: 2;
+    /* background: grey; */
+  }
+
+  .banner-right{
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding-top: 100px;
+
+  }
+
+  .owl-flex{
+    width: 350px;
+    transform: scale(1.2);
+  }
+
+  .actual-reviews{
+    position: absolute;
+    transform: scale(0.6) translate(-200px, 0px);
+    transform: scale(0.6) translate(500px, 250px);
+  }
+  
+  .hero-text1 {
+    padding-top: 20px;
+    padding-right: 20px;
+    font-size: 54px;
+    font-weight: 650;
+    font-family: 'Nunito', sans-serif;
+    line-height: 1em;
+  }
+  
+  .hero-text2 {
+    font-family: 'Nunito', sans-serif;
+    margin-top: 10px;
+    font-size: 20px;
+  }
+  
+  .hero-review {
+    padding: 10px;
+    border-radius: 23px;
+    width: 260px;
+    min-height: 170px;
+    margin-left: 35px;
+    line-height:1.3em;
+    overflow: hidden;
+    transition: 0.3s;
+  }
+  
+  .hero-tap {
+    color: rgb(126, 125, 125);
+    margin-top: -10px;
+    margin-left: 46px;
+    font-size: 12px;
+  }
+  
+  .hero-message {
+    align-content: center;
+    color: rgb(126, 125, 125);
+    margin-left: 10px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .hero-timestamp {
+    font-size: small;
+    color: rgb(141, 134, 134);
+    text-align: center;
+  }
+  
+  .hero-subflex-item1 .img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: -25px;
+    transform: translateY(-50px);
+  }
+  
+  .hero-profile-img {
+  transform: translateY(-50px);
+  }
+  
+  .hero-message-bar {
+    display: flex;
+    width: 330px;
+    height: 36px;
+    background: #fff;
+    border-radius: 30px;
+  }
+  
+  span {
+    margin-left: 4px;
+  }
+  
+  .owl-carousel .owl-item img[alt="camera"] {
+    width: 30px;
+    margin-top: 2px;
+    background-color: rgb(65, 138, 246);
+    padding: 4px;
+    border-radius: 16px;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer; 
+  }
+  
+  .hero-camera:hover {
+    transform: scale(0.9);
+  }
+  
+  .hero-mic-icon {
+    width: 33px;
+    height: 31px;
+    margin-left: 50px;
+    margin-top: 1px;
+    background: url(img/landing/mic.png) center no-repeat;
+    background-size: contain;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  
+  .hero-mic-icon:hover {
+    background: url(img/landing/mic-hover.png) center no-repeat;
+    background-size: contain;
+  }
+  
+  .hero-photo-icon {
+    width: 30px;
+    height: 31px;
+    margin-left: 3px;
+    margin-top: 2px;
+    background: url(img/landing/photo.png) center no-repeat;
+    background-size: contain;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  
+  .hero-photo-icon:hover {
+    background: url(img/landing/photo-hover.png) center no-repeat;
+    background-size: contain;
+  }
+  
+  .hero-sticker-icon {
+    width: 28px;
+    height: 28px;
+    margin-left: 9px;
+    margin-top: 4.8px;
+    background: url(img/landing/sticker.png) center no-repeat;
+    background-size: contain;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  
+  .hero-sticker-icon:hover {
+    background: url(img/landing/sticker-hover.png) center no-repeat;
+    background-size: contain;
+  }
+  
+  .hero-add-icon {
+    width: 35px;
+    height: 33px;
+    margin-top: 2px;
+    background: url(img/landing/add.png) center no-repeat;
+    background-size: contain;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  
+  .hero-add-icon:hover {
+    background: url(img/landing/add-hover.png) center no-repeat;
+    background-size: contain;
+  }
+
+
+/* ARTICLES */
+
+  a{
+    text-decoration:underline
+  }
+
+  h5{
+    font-weight:bolder;
+    color:#31afb4;
+  }
+  
+.post-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.post {
+    padding: 20px;
+    flex: 1 1 calc(33.333% - 20px);
+	transition: 0.3s;
+}
+
+.post-img{
+	width: 100%;
+	height: 250px;
+	background: grey;
+	border-radius: 20px;
+}
+
+.post h2 {
+	margin-bottom: 10px;
+	transition: 0.3s;
+}
+
+.post-time{
+	border-radius: 30px;
+	border: 1px solid #31afb4;
+	display: inline-block;
+	padding: 5px 20px;
+	font-size: 14px;
+	margin-bottom: 20px;
+}
+
+.post-content{
+	padding: 20px 10px;
+}
+
+.post:hover h2{
+	color: #31afb4;
+}
+
+a{
+	text-decoration: none;
+	color: #000;
+}
+
+
+
+
+.tiktok-div{
+	justify-content: flex-start;
+	padding-left: 0px;
+}
+
+.tiktok-post{
+	width: 350px;
+	height: 500px;
+	background: green;
+	transition: 0.3s;
+  border-radius: 20px;
+}
+
+.tiktok-post-overlay{
+	width: 100%;
+	height: 100%;
+	transition: 0.3s;
+}
+
+.tiktok-txt{
+	position: absolute;
+	bottom: 0;
+	font-size: 2em;
+	padding: 0 0 20px 30px;
+	font-weight: bolder;
+	color: #fff;
+}
+
+.tiktok-post:hover .tiktok-post-overlay{
+	background: rgb(0, 0, 0, 0.3);
+}
+
+.tiktok-header{
+	display: flex;
+}
+
+.tiktok-dp{
+	width: 80px;
+	height: 80px;
+	background: var(--main-color-light);
+	border-radius: 200px;
+	margin-right: 30px;
+	margin-top: 10px;
+}
+
+.tiktok-header-username{
+	font-size: 1.5em;
+	font-weight: bolder;
+	margin-bottom: 10px;
+}
+
+.tiktok-header-stats{
+	display: flex;
+}
+.tiktok-header-stat{
+	margin-right: 20px;
+}
+.tiktok-header-stat b{
+	font-size: 1.3em;
+} 
+
+
+.tiktok-button {
+	display: inline-block;
+	background-color: #ff0050;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 10px 20px;
+	border-radius: 5px;
+	text-align: center;
+	transition: background-color 0.3s ease;
+	text-decoration: none;
+	margin-bottom: 20px;
+  }
+  
+  .tiktok-button a {
+	color: inherit;
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+  }
+  
+  .tiktok-button a:hover {
+	/* background-color: #20D3CC; */
+  }
+  
+  .tiktok-logo {
+	width: 24px;
+	height: 24px;
+	margin-right: 10px;
+  }
+  
+
+@media only screen and (max-width: 700px) {
+	.tiktok-post{
+		width: 175px;
+		height: 250px;
+	}
+	.tiktok-txt{
+		font-size: 1em;
+	}
+}
+
+
+
+
+/* Responsive Styles */
+@media (max-width: 1400px) {
+  .blob{
+    /* width: 60%; */
+    /* height: 400px; */
+    /* background: url(img/blob3.png) top left no-repeat; */
+    /* background-size: contain; */
+  } 
+}
+
+@media (max-width: 1300px) {
+  .blob{
+    width: 60%;
+    height: 70vh;
+    background: url(img/blob3.png) top right no-repeat;
+    background-size: cover;
+  }
+}
+
+@media (max-width: 992px) {
+    .post-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .post-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+  
+  @media (max-width: 950px) {
+    
+  .blob{
+    display: none;
+    width: 100%;
+    height: 100vh;
+    background: url(img/blob3.png) top left no-repeat;
+    background-size: cover;
+  }
+
+
+    .flex-container {
+      padding: 0;
+      margin-top: 20px;
+      background: #31afb4;
+    }
+
+    .actual-reviews{display: none;}
+
+    .hero-tap, .hero-timestamp{
+      color: #fff;
+    }
+  
+    .flex-item {
+      /* margin: 0 15px; */
+      width: 100%;
+    }
+
+    .banner-left{
+      padding-bottom: 50px;
+    }
+  
+    .banner-right{
+      padding-top: 0px;
+      padding-bottom: 30px;
+    }
+    
+    .owl-flex{
+    /* background: red; */
+    transform: scale(1);
+    margin: auto;
+    }
+
+    
+  .actual-reviews{
+    transform: scale(0.6) translate(-50px, -100px);
+    transform: scale(0.45) translate(-100px, -50px);
+    z-index: 4;
+  }
+    .hero-text1 {
+      font-size: 40px;
+      text-align: center; 
+      padding-right: 0; 
+    }
+  
+    .hero-text2 {
+      font-size: 16px;
+      text-align: center; 
+    }
+  
+    .hero-button {
+      margin-left: 75px;
+    }
+  
+    .hero-timestamp {
+      /* text-align: center; */
+      padding-right: 30px;
+    }
+  
+    .hero-review {
+      margin: 35px;
+      margin-top: auto;
+      margin-bottom: 17px;
+    }
+  
+    .hero-tap {
+      margin-left: 35px;
+    }
+  
+    .hero-subflex-item1 img {
+      margin-left: 20px;
+    }
+  
+    .hero-message-bar {
+      width: 100%;
+    }
+  
+  }
+  
+   
+  @media (max-width: 600px) {
+    
+    .blob{
+      width: 100%;
+      height: 100vh;
+      background: url(img/blob3.png) top right no-repeat;
+      background-size: cover;
+    }
+
+  }

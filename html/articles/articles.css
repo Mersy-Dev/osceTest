@@ -1,0 +1,44 @@
+/*file upload drag*/
+.drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    text-align: center;
+    padding: 50px;
+    margin-bottom: 20px;
+  }
+  
+  .preview-image {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  #preview-area img{
+    width: 200px;
+    margin-right: 30px;
+  }
+  
+  #preview-area .deleteprev{
+    /*position: relative;*/
+    margin-left: -60px;
+  }
+  
+  #preview-area .filetype{
+    display: inline-block;
+    background: rgb(0,0,0,0.1);
+    /*width: 80%*/
+  }
+
+  .callout{
+    margin: 0 0 0px 0;
+    text-align: center;
+    font-weight: bolder;
+    color:red;
+  }
+
+  .preview-image{
+    width: 200px;
+  }
+
+  .article-hero-img{
+    width: 100%
+  }

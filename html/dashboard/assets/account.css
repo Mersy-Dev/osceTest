@@ -1,0 +1,65 @@
+
+body{
+  margin: auto;
+  font-family: 'Nunito', sans-serif;
+  background-color: #fafafa;
+}
+
+.left-side .box{
+  padding: 20px 0;
+  background: #fff;
+}
+
+.i{
+  font-size: 25px;
+  float: left;
+  margin-top: -8px;
+  margin-right: 20px;
+  position: relative;
+  transition: 0.3s;
+}
+
+.tab{
+/*  background: rgb(0, 0, 0, 0.5);*/
+/*  margin-top: 5px;*/
+  transition: 0.3s;
+  cursor: pointer;
+/*  float: left;*/
+  width: 90%;
+  color: rgb(0, 0, 0, 0.7);
+  font-weight: bolder;
+  padding: 18px 0 10px 20px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.tab:hover .i{
+  color: #31afb4;
+  margin-right: 30px;
+}
+
+.tab-active{
+  background: rgb(0,0,0,0.05);
+}
+
+.fadeout{
+  display: none;
+}
+
+.right-fff{
+  background:#fff;
+  padding: 30px;
+  margin-top: -9px;
+  border-radius: 10px;
+}
+
+
+
+@media only screen and (max-width: 900px) {
+
+.right-fff{
+  padding: 30px 10px;
+}
+
+}
