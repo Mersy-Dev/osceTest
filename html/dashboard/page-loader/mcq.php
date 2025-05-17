@@ -2,107 +2,95 @@
 
 require_once "../../inc/conn.php";
 
-// error_reporting(E_ALL);
-// ini_set('display_errors', '1');
-
-
 // Path to your CSV file
 $csvFile = '../../../mcq.csv';
 
+// Fallback for missing file
+if (!file_exists($csvFile)) {
+    http_response_code(500);
+    exit(json_encode(['error' => 'MCQ file not found']));
+}
 
+// Ensure mcq-count.txt exists
+$counterFile = "mcq-count.txt";
+if (!file_exists($counterFile)) {
+    file_put_contents($counterFile, "0");
+}
 
-// Get the current day as a counter or randomize it
-$currentDay = file_get_contents("mcq-count.txt") + date('j'); // Use the day of the month as the counter
-// $currentDay = rand(0, 90);
-// $currentDay = 6;
+$currentDay = (int)file_get_contents($counterFile) + date('j');
 
-
-
-// Read the CSV file
+// Read the CSV
+$questionDataArray = [];
 if (($handle = fopen($csvFile, "r")) !== false) {
-    // Read the CSV file row by row
     while (($data = fgetcsv($handle, 1000, ",")) !== false) {
-        // Extract the relevant fields from the CSV row
-        $question = $data[0];
-        $options = [
-            'A' => $data[1],
-            'B' => $data[2],
-            'C' => $data[3],
-            'D' => $data[4],
-            'E' => $data[5]
-        ];
-        $correctAnswer = $data[6];
-        $explanation = $data[7];
+        if (count($data) < 8) continue; // Skip incomplete rows
 
-        // Store the extracted data in an associative array
-        $questionData = [
-            'question' => $question,
-            'options' => $options,
-            'correctAnswer' => $correctAnswer,
-            'explanation' => $explanation
+        $questionDataArray[] = [
+            'question' => $data[0],
+            'options' => [
+                'A' => $data[1],
+                'B' => $data[2],
+                'C' => $data[3],
+                'D' => $data[4],
+                'E' => $data[5]
+            ],
+            'correctAnswer' => trim($data[6]),
+            'explanation' => $data[7]
         ];
-
-        // Add the question data to the array
-        $questionDataArray[] = $questionData;
     }
-
-    // Close the CSV file
     fclose($handle);
 }
 
-// Total number of questions
 $totalQuestions = count($questionDataArray);
+if ($totalQuestions === 0) {
+    http_response_code(500);
+    exit(json_encode(['error' => 'No questions available']));
+}
 
-// Select the question for the current day
 $selectedQuestionIndex = ($currentDay - 1) % $totalQuestions;
 $selectedQuestionData = $questionDataArray[$selectedQuestionIndex];
 
-// Encode the selected question data as JSON and return it
-$response = json_encode($selectedQuestionData);
+// If user is submitting an answer
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['streak']) && !empty($_POST['streak'])) {
+    // session_start();
 
-
-if (isset($_POST['streak']) and !empty($_POST['streak'])) {
-
-
-    logged_in(true);
-
-    $ans = post('streak');
-    if ($ans==$selectedQuestionData['correctAnswer']) {
-        // echo "string";
+    if (!isset($_SESSION['email'], $_SESSION['first_name'])) {
+        http_response_code(401);
+        exit("Unauthorized");
     }
 
+    $ans = trim($_POST['streak']);
     $email = $_SESSION['email'];
     $first_name = $_SESSION['first_name'];
     $today = date("Y-m-d");
-    $streak_count=1;
-
     $yesterday = date("Y-m-d", strtotime("yesterday"));
+
     $sql = "SELECT * FROM daily_streak WHERE email='$email'";
     $query = mysqli_query($conn, $sql);
 
-    if ($query->num_rows == 0) {
-        
-        mysqli_query($conn, "INSERT INTO daily_streak (email, first_name, last_date, streak_count) VALUES ('$email', '$first_name', '$today', 1)");
-    }else{
+    if ($query->num_rows === 0) {
+        $streak_count = 1;
+        mysqli_query($conn, "INSERT INTO daily_streak (email, first_name, last_date, streak_count) VALUES ('$email', '$first_name', '$today', $streak_count)");
+    } else {
         $streak = mysqli_fetch_assoc($query);
 
-        if ($streak['last_date']==$yesterday) {
-            $streak_count = $streak['streak_count']+1;
-            mysqli_query($conn, "UPDATE daily_streak SET last_date='$today', streak_count='$streak_count' WHERE email='$email'");
-        }else if ($streak['last_date']!==$today){
+        if ($streak['last_date'] === $yesterday) {
+            $streak_count = $streak['streak_count'] + 1;
+        } else if ($streak['last_date'] !== $today) {
             $streak_count = 1;
-            mysqli_query($conn, "UPDATE daily_streak SET last_date='$today', streak_count='$streak_count' WHERE email='$email'");
+        } else {
+            $streak_count = $streak['streak_count']; // already submitted today
         }
+
+        mysqli_query($conn, "UPDATE daily_streak SET last_date='$today', streak_count=$streak_count WHERE email='$email'");
     }
 
     echo $streak_count;
-
-
-
-
-
     exit();
 }
 
-echo $response;
+// Output question JSON
+header('Content-Type: application/json');
+echo json_encode($selectedQuestionData);
+exit();
 ?>

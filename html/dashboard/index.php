@@ -150,34 +150,79 @@ require_once "header.php";
       ?>
       <div style="padding:20px">
 
-        <div class="your-streak-row" style="display:none">
-          <div class="your-streak-box">
-            <div class="your-streak-box-top">Your Streak</div>
-            <div class="your-streak-box-number" id="streakCount"><?php echo $streak; ?></div>
+        <div class="your-streak-row"
+          style="display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+
+          <!-- Your Streak Box -->
+          <div class="your-streak-box"
+            style="border: 2px solid #ddd; border-radius: 10px; padding: 20px; width: 120px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+            <div class="your-streak-box-top" style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Your Streak
+            </div>
+            <div class="your-streak-box-number" id="streakCount" style="font-size: 10px; font-weight: 300;">
+              <?php echo $streak; ?>
+            </div>
           </div>
 
-          <div class="streak-right">
-            <div class="streak-top">TOP</div>
-            <div class="streak-avatar-row">
+          <!-- Top Streak Members -->
+          <div class="streak-right" style="flex-grow: 1;">
+            <div class="streak-top"
+              style="font-weight: bold; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+              TOP STREAK MEMBERS
+              <label style="font-weight: normal; font-size: 14px;">
+                <input type="checkbox" />
+                Show my streak publicly
+              </label>
+            </div>
 
+            <div class="streak-avatar-row" style="display: flex; gap: 20px;">
               <?php
-
               $day_before = date("Y-m-d", strtotime("-2 days"));
-              $streak_board = mysqli_query($conn, "SELECT * FROM daily_streak WHERE last_date>'$day_before' ORDER BY streak_count LIMIT 0,4");
+              $streak_board = mysqli_query($conn, "SELECT * FROM daily_streak WHERE last_date>'$day_before' ORDER BY streak_count DESC LIMIT 0,4");
 
+              $rank = 1;
+              $trophies = ['🥇', '🥈', '🥉', '🎖️'];
               while ($x = mysqli_fetch_assoc($streak_board)) {
                 ?>
-                <div class="streak-profile">
-                  <div class="streak-avatar"></div>
-                  <div><?php echo $x['streak_count']; ?></div>
-                  <div><?php echo $x['first_name']; ?></div>
+                <div class="streak-profile" style="text-align: center;">
+                  <div class="streak-avatar" style="font-size: 30px;"><?php echo $trophies[$rank - 1]; ?></div>
+                  <div style="font-weight: bold;"><?php echo $x['streak_count']; ?></div>
+                  <div style="font-size: 14px;"><?php echo $x['first_name']; ?></div>
                 </div>
-              <?php } ?>
+                <?php $rank++;
+              } ?>
+            </div>
+          </div>
+
+          <!-- Countdown Timer -->
+          <div id="countdown"
+            style="margin-top: 10px; font-weight: bold; font-size: 14px; border: 2px solid #ddd; border-radius: 10px; padding: 20px; width: 100%; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+            <div style="display: flex; gap: 15px; align-items: center; justify-content:  space-between;">
+
+              <p style="margin: 0;">The question expires in:</p>
+
+              <div style="display: flex; gap: 5px;">
+                <div
+                  style="background-color: #f88a9d; color: white; padding: 10px 15px; border-radius: 5px; font-weight: bold; text-align: center;">
+                  <span id="hours">00</span>
+                  <div style="font-size: 12px;">Hours</div>
+                </div>
+                <div
+                  style="background-color: #f88a9d; color: white; padding: 10px 15px; border-radius: 5px; font-weight: bold; text-align: center;">
+                  <span id="minutes">00</span>
+                  <div style="font-size: 12px;">Minutes</div>
+                </div>
+                <div
+                  style="background-color: #f88a9d; color: white; padding: 10px 15px; border-radius: 5px; font-weight: bold; text-align: center;">
+                  <span id="seconds">00</span>
+                  <div style="font-size: 12px;">Seconds</div>
+                </div>
+              </div>
 
             </div>
           </div>
 
         </div>
+
 
         <br>
         <div style="font-size: 12px;font-weight: bolder;">Answer questions daily to maintain your streak!</div>
@@ -240,7 +285,15 @@ require_once "header.php";
         fetch('page-loader/mcq')
           .then(response => response.json())
           .then(questionData => {
-            // Populate the HTML elements with question and options
+            // If question is already locked (e.g., already answered)
+            if (questionData.status === "locked") {
+              document.getElementById("question").textContent = "You’ve already answered today’s question. Come back tomorrow!";
+              document.querySelectorAll("label").forEach(el => el.style.display = "none");
+              document.getElementById("submit-answer").style.display = "none";
+              return;
+            }
+
+            // Populate question and options
             document.getElementById("question").textContent = questionData.question;
             document.getElementById("option-a").textContent = "A. " + questionData.options.A;
             document.getElementById("option-b").textContent = "B. " + questionData.options.B;
@@ -248,42 +301,76 @@ require_once "header.php";
             document.getElementById("option-d").textContent = "D. " + questionData.options.D;
             document.getElementById("option-e").textContent = "E. " + questionData.options.E;
 
-            // Add event listener to the "Submit Answer" button
+            // Submit button logic
             document.getElementById("submit-answer").addEventListener("click", function () {
-              var selectedAnswer = document.querySelector("input[name='answer']:checked").value;
+              var selectedInput = document.querySelector("input[name='answer']:checked");
+              if (!selectedInput) {
+                alert("Please select an answer.");
+                return;
+              }
 
+              var selectedAnswer = selectedInput.value;
 
+              // Prevent multiple submissions
+              document.getElementById("submit-answer").disabled = true;
+
+              // Post selected answer
               $.post("page-loader/mcq", { streak: selectedAnswer }, function (response) {
-                console.log(response);
-                document.getElementById('streakCount').innerHTML = response;
-
+                // Show updated streak
+                document.getElementById('streakCount').innerHTML = "<span style='font-size: 0.85rem; color: #555; font-style: italic;'>Current Streak: " + response + "</span>";
                 $("#answer").slideDown();
 
-                // Check if the selected answer is correct
+                // Check if the answer is correct
                 var isCorrect = (selectedAnswer === questionData.correctAnswer);
 
-                // Display feedback and explanation
-                document.getElementById("answer-feedback").textContent = isCorrect ? "Correct!" : "Incorrect! Answer: " + questionData.correctAnswer;
+                // Show feedback
+                document.getElementById("answer-feedback").textContent = isCorrect
+                  ? "Correct!"
+                  : "Incorrect! The correct answer is: " + questionData.correctAnswer;
+
                 document.getElementById("explanation").textContent = questionData.explanation;
 
-                // Change color of selected option if the answer is incorrect
-                if (!isCorrect) {
-                  var selectedOption = document.querySelector("label[for='option-" + selectedAnswer.toLowerCase() + "-input']");
-                  selectedOption.style.color = "red";
+                // Highlight answers
+                var correctOption = document.querySelector("label[for='option-" + questionData.correctAnswer.toLowerCase() + "-input']");
+                correctOption.style.color = "green";
+                correctOption.style.fontWeight = "bold";
 
-                  // document.querySelector("label[for='option-" + questionData.correctAnswer.toLowerCase() + "-input']").style.color = "green";
-                  document.querySelector("label[for='option-" + questionData.correctAnswer.toLowerCase() + "-input']").style.fontWeight = "bolder";
-                  document.querySelector("label[for='option-" + questionData.correctAnswer.toLowerCase() + "-input']").style.color = "green";
-                  // console.log(selectedOption);
+                if (!isCorrect) {
+                  var selectedLabel = document.querySelector("label[for='option-" + selectedAnswer.toLowerCase() + "-input']");
+                  selectedLabel.style.color = "red";
                 }
+
+                // Lock the question
+                document.querySelectorAll("input[name='answer']").forEach(el => el.disabled = true);
               });
             });
           })
           .catch(error => {
-            console.error('Error:', error);
-            // Handle error scenario
+            console.error('Error fetching question:', error);
+            document.getElementById("question").textContent = "Failed to load question. Please try again later.";
           });
+      </script>
 
+
+      <script>
+        function updateCountdown() {
+          const now = new Date();
+          const deadline = new Date();
+          deadline.setHours(24, 0, 0, 0); // Midnight
+
+          const diff = deadline - now;
+
+          const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
+          const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+          const seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+
+          document.getElementById("hours").textContent = hours;
+          document.getElementById("minutes").textContent = minutes;
+          document.getElementById("seconds").textContent = seconds;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
       </script>
 
 
@@ -339,7 +426,8 @@ require_once "header.php";
           <div class="progress">
             <div class="progress-bar" role="progressbar"
               style="width: <?php echo number_format(((150 - $days_left) / 150) * 100, 5); ?>%;background:#31afb4"
-              aria-valuenow="<?php echo number_format((150 - $days_left) / 100); ?>" aria-valuemin="0" aria-valuemax="100">
+              aria-valuenow="<?php echo number_format((150 - $days_left) / 100); ?>" aria-valuemin="0"
+              aria-valuemax="100">
             </div>
           </div>
 
@@ -378,7 +466,8 @@ require_once "header.php";
 
       <a href="<?php echo $url; ?>referral?r=<?php echo $user_info['id']; ?>" id="refurl">
         <div class="dashboard-card-small-link" target="_blank">
-          <?php echo $url; ?>referral?r=<?php echo $user_info['id']; ?></div>
+          <?php echo $url; ?>referral?r=<?php echo $user_info['id']; ?>
+        </div>
       </a>
 
       <div id="copy" style="font-size: 12px;cursor:pointer;" onclick="copyToClipboard()"><i class="bx bx-copy"></i> Copy
